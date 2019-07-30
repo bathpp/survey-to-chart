@@ -88,6 +88,7 @@ export default class MainForm extends React.Component {
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          maskClosable={false}
         >
           <Descriptions title="User Info" column={2} bordered>
             <Descriptions.Item label="UserName">{name}</Descriptions.Item>

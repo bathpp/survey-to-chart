@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chart, Geom, Axis, Tooltip, Legend } from 'bizcharts';
+import { Chart, Geom, Axis, Tooltip, Legend, Label } from 'bizcharts';
 import DataSet from '@antv/data-set';
 import { CATEGORY } from '../asset/data';
 import { buildChartData } from './utils';
@@ -32,7 +32,16 @@ function Stackedcolumn(props) {
             stroke: '#fff',
             lineWidth: 1
           }}
-        />
+        >
+          <Label
+            content="Count"
+            position="bottom"
+            textStyle={{
+              fontSize: '12',
+              fontWeight: 'bold'
+            }}
+          />
+        </Geom>
       </Chart>
     </div>
   );

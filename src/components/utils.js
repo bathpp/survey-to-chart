@@ -34,7 +34,9 @@ function switchOnAnswer(answer, categoryName) {
 }
 
 export function buildChartData(allResult) {
-  // let chartData =  Object.values(ANSWER).map(item=>({name:item}));
+  yesHolder = { name: 'Yes' };
+  noHolder = { name: 'No' };
+  maybeHolder = { name: 'Maybe' };
 
   allResult.forEach(v => {
     const { CATE, answer } = v;
@@ -58,6 +60,13 @@ export function buildChartData(allResult) {
   });
 
   return [yesHolder, noHolder, maybeHolder];
+}
+
+function getCateCounts(cate) {
+  return { Yes: yesHolder[cate], No: noHolder[cate], Maybe: maybeHolder[cate] };
+}
+export function buildTableData() {
+  Object.values(CATEGORY).map(item => item.DESC);
 }
 
 export const questionData = QUESTION_DATA.map(k => ({
