@@ -1,25 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Layout, Divider, Card } from 'antd';
+
+import UserInfor from './components/UserInfo';
+import QuestionList from './components/QuestionList';
+
+
+const contentStyle = { padding: 24, minHeight: 'calc(100vh - 64px)' };
+
+
+const { Header, Content } = Layout;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Header>Survey-To-Chart</Header>
+      <Content style={contentStyle}>
+        {/* background: '#fafafa'  */}
+        <Card style={{ width: '50%', margin: 'auto' }}>
+          <UserInfor />
+          <Divider style={{ height: 2, marginTop: 0 }} />
+          <QuestionList />
+        </Card>
+
+      </Content>
+    </Layout>
   );
 }
 
