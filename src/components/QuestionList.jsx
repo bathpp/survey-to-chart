@@ -1,22 +1,31 @@
 import React from 'react';
-import { List, Button } from 'antd';
+import { List } from 'antd';
 import Question from './Question';
-import { CATEGORY, QUESTION, QUESTION_DATA } from '../asset/data';
+import { questionData } from './utils';
 
-const qsData = QUESTION_DATA.map(k => QUESTION[k]);
+const allResult = new Map();
 
-function SubmitButton() {
-  return <Button block type="primary" size='large'>Submit Survey</Button>
-}
-
-function QuestionList() {
+function QuestionList({ footer }) {
+  const onRadioChange = (e, item) => {
+    e.stopPropagation();
+    const answer = e.target.value;
+    const { CATE, key } = item;
+    allResult.set(key, { CATE, answer });
+  };
   return (
     <List
-      header={<h2>Questions</h2>}
-      footer={<SubmitButton />}
+      header={<h3>Questions</h3>}
+      footer={footer(allResult)}
       bordered
-      dataSource={qsData}
-      renderItem={item => <List.Item style={{ display: 'block' }}><Question questionDesc={item.DESC} /></List.Item>}
+      dataSource={questionData}
+      renderItem={item => (
+        <List.Item style={{ display: 'block' }}>
+          <Question
+            question={item}
+            onRadioChange={e => onRadioChange(e, item)}
+          />
+        </List.Item>
+      )}
     />
   );
 }
