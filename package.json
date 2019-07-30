@@ -2,7 +2,7 @@
   "name": "survey-to-chart",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bathpp.github.io",
+  "homepage": "https://bathpp.github.io/survey-to-chart",
   "dependencies": {
     "@antv/data-set": "^0.10.2",
     "antd": "^3.20.7",

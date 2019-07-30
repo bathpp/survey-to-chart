@@ -83,13 +83,13 @@ export default class MainForm extends React.Component {
           />
         </Card>
         <Modal
-          title="Result"
+          title="A Business assessment has just been completed, details below"
           width={800}
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <Descriptions title="User Info" column={2}>
+          <Descriptions title="User Info" column={2} bordered>
             <Descriptions.Item label="UserName">{name}</Descriptions.Item>
             <Descriptions.Item label="Phone">{phone}</Descriptions.Item>
             <Descriptions.Item label="Email">{email}</Descriptions.Item>
