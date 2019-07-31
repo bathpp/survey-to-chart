@@ -1,8 +1,21 @@
 import React from 'react';
-import { Card, Divider, Button, message, Modal, Descriptions } from 'antd';
+import {
+  Card,
+  Divider,
+  Button,
+  message,
+  Modal,
+  Descriptions,
+  Table
+} from 'antd';
 import UserInfoForm from './UserInfoForm';
 import QuestionList from './QuestionList';
 import BarChart from './BarChart';
+import {
+  buildResultTableData,
+  chartTableCols,
+  buildResultChartData
+} from './utils';
 
 const warning = msg => {
   message.warning(msg, 1);
@@ -72,6 +85,13 @@ export default class MainForm extends React.Component {
       allResult,
       userInfo: { name, phone, email, businessname }
     } = this.state;
+    // chart data need to be calulate first, table data is built based on chartData
+
+    const chartData =
+      allResult && allResult.size > 0 ? buildResultChartData(allResult) : [];
+    const tableData =
+      allResult && allResult.size > 0 ? buildResultTableData(allResult) : [];
+
     return (
       //  background: '#fafafa'
       <>
@@ -82,27 +102,38 @@ export default class MainForm extends React.Component {
             footer={result => SubmitButton(result, this.handleSubmit)}
           />
         </Card>
-        <Modal
-          title="A Business assessment has just been completed, details below"
-          width={800}
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          maskClosable={false}
-        >
-          <Descriptions title="User Info" column={2} bordered>
-            <Descriptions.Item label="UserName">{name}</Descriptions.Item>
-            <Descriptions.Item label="Phone">{phone}</Descriptions.Item>
-            <Descriptions.Item label="Email">{email}</Descriptions.Item>
-            <Descriptions.Item label="Business Name">
-              {businessname}
-            </Descriptions.Item>
-          </Descriptions>
-
-          {allResult && allResult.size > 0 && (
-            <BarChart data={this.state.allResult} />
-          )}
-        </Modal>
+        {allResult && allResult.size > 0 && (
+          <Modal
+            title="A Business assessment has just been completed, details below"
+            width={800}
+            visible={this.state.visible}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+            maskClosable={false}
+          >
+            <div className="modal-sub-title">User Info</div>
+            <Descriptions column={2} bordered>
+              <Descriptions.Item label="UserName">{name}</Descriptions.Item>
+              <Descriptions.Item label="Phone">{phone}</Descriptions.Item>
+              <Descriptions.Item label="Email">{email}</Descriptions.Item>
+              <Descriptions.Item label="Business Name">
+                {businessname}
+              </Descriptions.Item>
+            </Descriptions>
+            <Divider />
+            <div className="modal-sub-title">Result Table</div>
+            <Table
+              columns={chartTableCols}
+              dataSource={tableData}
+              bordered
+              size="small"
+              pagination={false}
+            />
+            <Divider />
+            <div className="modal-sub-title">Result Chart</div>
+            <BarChart data={chartData} />
+          </Modal>
+        )}
       </>
     );
   }

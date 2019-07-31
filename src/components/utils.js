@@ -33,10 +33,16 @@ function switchOnAnswer(answer, categoryName) {
   }
 }
 
-export function buildChartData(allResult) {
+export function buildResultChartData(allResult) {
   yesHolder = { name: 'Yes' };
   noHolder = { name: 'No' };
   maybeHolder = { name: 'Maybe' };
+
+  Object.values(CATEGORY).forEach(item => {
+    yesHolder[item.DESC] = 0;
+    noHolder[item.DESC] = 0;
+    maybeHolder[item.DESC] = 0;
+  });
 
   allResult.forEach(v => {
     const { CATE, answer } = v;
@@ -62,11 +68,42 @@ export function buildChartData(allResult) {
   return [yesHolder, noHolder, maybeHolder];
 }
 
-function getCateCounts(cate) {
-  return { Yes: yesHolder[cate], No: noHolder[cate], Maybe: maybeHolder[cate] };
+export const chartTableCols = [
+  {
+    title: 'Category',
+    dataIndex: 'Category'
+  },
+  {
+    title: 'Yes',
+    dataIndex: 'Yes',
+    width: 120
+  },
+  {
+    title: 'No',
+    dataIndex: 'No',
+    width: 120
+  },
+  {
+    title: 'Maybe',
+    dataIndex: 'Maybe',
+    width: 120
+  }
+];
+
+function buildData(cate) {
+  // console.log(yesHolder, yesHolder[cate]);
+  return {
+    key: cate,
+    Category: cate,
+    Yes: yesHolder[cate],
+    No: noHolder[cate],
+    Maybe: maybeHolder[cate]
+  };
 }
-export function buildTableData() {
-  Object.values(CATEGORY).map(item => item.DESC);
+export function buildResultTableData() {
+  const a = Object.values(CATEGORY).map(item => buildData(item.DESC));
+  console.log(a);
+  return a;
 }
 
 export const questionData = QUESTION_DATA.map(k => ({
