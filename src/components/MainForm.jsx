@@ -90,7 +90,7 @@ export default class MainForm extends React.Component {
     const chartData =
       allResult && allResult.size > 0 ? buildResultChartData(allResult) : [];
     const tableData =
-      allResult && allResult.size > 0 ? buildResultTableData(allResult) : [];
+      allResult && allResult.size > 0 ? buildResultTableData() : [];
 
     return (
       //  background: '#fafafa'

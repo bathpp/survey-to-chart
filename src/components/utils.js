@@ -38,12 +38,6 @@ export function buildResultChartData(allResult) {
   noHolder = { name: 'No' };
   maybeHolder = { name: 'Maybe' };
 
-  Object.values(CATEGORY).forEach(item => {
-    yesHolder[item.DESC] = 0;
-    noHolder[item.DESC] = 0;
-    maybeHolder[item.DESC] = 0;
-  });
-
   allResult.forEach(v => {
     const { CATE, answer } = v;
     const categoryName = CATEGORY[CATE].DESC;
@@ -90,20 +84,28 @@ export const chartTableCols = [
   }
 ];
 
-function buildData(cate) {
-  // console.log(yesHolder, yesHolder[cate]);
-  return {
-    key: cate,
-    Category: cate,
-    Yes: yesHolder[cate],
-    No: noHolder[cate],
-    Maybe: maybeHolder[cate]
-  };
-}
 export function buildResultTableData() {
-  const a = Object.values(CATEGORY).map(item => buildData(item.DESC));
-  console.log(a);
-  return a;
+  const yesHolderTemp = { ...yesHolder };
+  const noHolderTemp = { ...noHolder };
+  const maybeHolderTemp = { ...maybeHolder };
+  Object.values(CATEGORY).forEach(item => {
+    if (!yesHolderTemp[item.DESC]) {
+      yesHolderTemp[item.DESC] = 0;
+    }
+    if (!noHolderTemp[item.DESC]) {
+      noHolderTemp[item.DESC] = 0;
+    }
+    if (!maybeHolderTemp[item.DESC]) {
+      maybeHolderTemp[item.DESC] = 0;
+    }
+  });
+  return Object.values(CATEGORY).map(({ DESC }) => ({
+    key: DESC,
+    Category: DESC,
+    Yes: yesHolderTemp[DESC],
+    No: noHolderTemp[DESC],
+    Maybe: maybeHolderTemp[DESC]
+  }));
 }
 
 export const questionData = QUESTION_DATA.map(k => ({
