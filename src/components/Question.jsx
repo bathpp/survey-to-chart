@@ -6,10 +6,10 @@ const qstyle = {
   justifyContent: 'space-between'
 };
 
-const Question = props => (
+const Question = ({ question: { key, DESC }, onRadioChange }) => (
   <div style={qstyle}>
-    {props.question.DESC}
-    <BtnGroup onChange={props.onRadioChange} />
+    {`${key - 1}. ${DESC}`}
+    <BtnGroup onChange={onRadioChange} />
   </div>
 );
 

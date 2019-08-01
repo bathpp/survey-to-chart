@@ -16,6 +16,7 @@ import {
   chartTableCols,
   buildResultChartData
 } from './utils';
+import logo from '../asset/logo.png';
 
 const warning = msg => {
   message.warning(msg, 1);
@@ -96,6 +97,9 @@ export default class MainForm extends React.Component {
       //  background: '#fafafa'
       <>
         <Card style={{ width: '50%', minWidth: '800px', margin: 'auto' }}>
+          <div style={{ width: '160px', margin: 'auto' }}>
+            <img src={logo} alt="Logo" />
+          </div>
           <UserInfoForm wrappedComponentRef={this.saveFormRef} />
           <Divider style={{ height: 2, marginTop: 0 }} />
           <QuestionList
