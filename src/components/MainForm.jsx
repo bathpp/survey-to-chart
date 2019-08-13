@@ -72,7 +72,11 @@ export default class MainForm extends React.Component {
       if (err) {
         warning('Please fill all User Info.');
       } else {
-        this.showModal(allResult, values);
+        if(allResult.size===0){
+          warning('Please select some answers.');
+        }else{
+          this.showModal(allResult, values);
+        }
       }
     });
   };
